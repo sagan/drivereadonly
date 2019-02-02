@@ -4,6 +4,7 @@ import static de.robv.android.xposed.XposedHelpers.*;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 
@@ -12,9 +13,16 @@ import android.content.Context;
 
 public class Hook implements IXposedHookLoadPackage {
   public void handleLoadPackage(final LoadPackageParam lpparam) throws Throwable {
-//        if (!lpparam.packageName.equals("com.android.systemui"))
-//            return;
+//  if (!lpparam.packageName.equals("com.android.systemui"))
+//     return;
     XposedBridge.log("DriveReadonly Load package" + lpparam.packageName);
+
+    XSharedPreferences pref = new XSharedPreferences(Hook.class.getPackage().getName(), "config");
+    pref.reload();
+
+    if( !pref.getBoolean("enabled", false) ) {
+      return;
+    }
 
     findAndHookConstructor("com.google.android.gms.common.api.Scope", lpparam.classLoader, String.class, new XC_MethodHook() {
       @Override
