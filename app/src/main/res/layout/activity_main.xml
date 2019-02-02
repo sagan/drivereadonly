@@ -43,5 +43,15 @@
             android:duplicateParentState="false"
             android:text="Enable"
             android:textSize="36sp" />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:text='* This xposed module make apps that can access Google Drive request API access in read-only mode.\n* Usage:  tick the "Enable" button. (You need to restart the target app if already running)'
+            android:textSize="30sp" />
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
