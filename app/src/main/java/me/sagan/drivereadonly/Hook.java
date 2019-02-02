@@ -62,7 +62,7 @@ public class Hook implements IXposedHookLoadPackage {
         if( param.args[i] instanceof String ) {
           String scope = (String) param.args[i];
           if( scope.matches("(?i)^\\s*oauth2:.*") ){
-            if( scope.matches( ".*(\\s|^)https://www\\.googleapis\\.com/auth/drive(\\s|$).*") ) {
+            if( scope.matches( ".*(\\s|:)https://www\\.googleapis\\.com/auth/drive(\\s|$).*") ) {
               param.args[i] = scope.replace("https://www.googleapis.com/auth/drive", "https://www.googleapis.com/auth/drive.readonly");
             }
             break;
