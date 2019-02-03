@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textMultiLine"
-            android:text="* This xposed module make apps that can access Google Drive request API access in read-only mode.\n* Usage: tick the &quot;Enable&quot; button. (You need to restart the target app if already running)\n* This module decrease your device's performance seriously when working (loaded and enabled). You should untick the &quot;Enable&quot; checkbox once you have done authorizing Google Drive in your target app"
+            android:text="* This xposed module make apps that can access Google Drive request API token in read-only mode.\n* Usage: tick the &quot;Enable&quot; button. (You need to restart the target app if already running).\n* This module decrease your device's performance seriously when working (loaded and enabled). You should untick the &quot;Enable&quot; checkbox once you have done authorizing Google Drive in your target app."
             android:textSize="30sp" />
 
     </LinearLayout>
