@@ -1,8 +1,13 @@
 package me.sagan.drivereadonly;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -19,12 +24,20 @@ public class MainActivity extends AppCompatActivity {
     final SharedPreferences sharedPref = this.getSharedPreferences("config",0);
     CheckBox checkBox = (CheckBox)findViewById(R.id.enabledCheckbox);
     checkBox.setChecked(sharedPref.getBoolean("enabled", false));
-
     checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putBoolean("enabled", isChecked);
         editor.commit();
+      }
+    });
+
+    Button hpButton = (Button) findViewById(R.id.hp);
+    hpButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/sagan/drivereadonly"));
+        startActivity(browserIntent);
       }
     });
   }
@@ -34,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
     super.onResume();
     TextView a = (TextView) findViewById(R.id.status);
     a.setText(ok() ? "loaded" : "not loaded");
-    a.setText(a.getText());
   }
 
   @Override
@@ -57,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     }
   }
   public boolean ok() {
+    Log.i("fake", "isModuleActive");
     return false;
   }
 }
