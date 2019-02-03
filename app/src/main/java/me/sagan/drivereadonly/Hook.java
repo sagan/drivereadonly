@@ -55,12 +55,18 @@ public class Hook implements IXposedHookLoadPackage {
 
 
     XC_MethodHook authoUtilHook = new GoogleAuthUtilGetTokenHook();
-    findAndHookMethod("com.google.android.gms.auth.GoogleAuthUtil", lpparam.classLoader, "getToken", Context.class, Account.class, String.class, Bundle.class, authoUtilHook);
-    findAndHookMethod("com.google.android.gms.auth.GoogleAuthUtil", lpparam.classLoader, "getToken", Context.class, Account.class, String.class, authoUtilHook);
-    findAndHookMethod("com.google.android.gms.auth.GoogleAuthUtil", lpparam.classLoader, "getToken", Context.class, String.class, String.class, Bundle.class, authoUtilHook);
-    findAndHookMethod("com.google.android.gms.auth.GoogleAuthUtil", lpparam.classLoader, "getToken", Context.class, String.class, String.class, authoUtilHook);
+    hookMethod("com.google.android.gms.auth.GoogleAuthUtil", lpparam.classLoader, "getToken", Context.class, Account.class, String.class, Bundle.class, authoUtilHook);
+    hookMethod("com.google.android.gms.auth.GoogleAuthUtil", lpparam.classLoader, "getToken", Context.class, Account.class, String.class, authoUtilHook);
+    hookMethod("com.google.android.gms.auth.GoogleAuthUtil", lpparam.classLoader, "getToken", Context.class, String.class, String.class, Bundle.class, authoUtilHook);
+    hookMethod("com.google.android.gms.auth.GoogleAuthUtil", lpparam.classLoader, "getToken", Context.class, String.class, String.class, authoUtilHook);
     //getTokenWithNotification 好像没有什么 app 用，就不写hook了
 
+  }
+
+  static void hookMethod(String c, ClassLoader classLoader, String s, Object... parameterTypesAndCallback) {
+    try {
+      findAndHookMethod(c, classLoader, s, parameterTypesAndCallback);
+    } catch(Exception e) {}
   }
 
   class GoogleAuthUtilGetTokenHook extends XC_MethodHook {
