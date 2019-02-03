@@ -11,30 +11,31 @@ import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
 
-        final SharedPreferences sharedPref = this.getSharedPreferences("config",0);
-        CheckBox checkBox = (CheckBox)findViewById(R.id.enabledCheckbox);
-        checkBox.setChecked(sharedPref.getBoolean("enabled", false));
+    final SharedPreferences sharedPref = this.getSharedPreferences("config",0);
+    CheckBox checkBox = (CheckBox)findViewById(R.id.enabledCheckbox);
+    checkBox.setChecked(sharedPref.getBoolean("enabled", false));
 
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putBoolean("enabled", isChecked);
-                editor.commit();
-            }
-        });
-    }
+    checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean("enabled", isChecked);
+        editor.commit();
+      }
+    });
+  }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        TextView a = (TextView) findViewById(R.id.status);
-        a.setText(ok() ? "loaded" : "not loaded");
-    }
+  @Override
+  public void onResume() {
+    super.onResume();
+    TextView a = (TextView) findViewById(R.id.status);
+    a.setText(ok() ? "loaded" : "not loaded");
+    a.setText(a.getText());
+  }
 
   @Override
   public void onPause() {
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
       prefsFile.setExecutable(true, false);
     }
   }
-    public boolean ok() {
-        return false;
-    }
+  public boolean ok() {
+    return false;
+  }
 }
